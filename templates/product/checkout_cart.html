@@ -1,0 +1,30 @@
+{% extends 'product/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+<script>
+
+$(window).bind("pageshow", function(event) {
+    if (event.originalEvent.persisted) {
+        console.log("reloading")
+        window.location.reload();
+    }
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div style="margin-top:100px;">
+    <div style="margin-left:235px;text-align: center;height:250px;width: 600px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);text-align: center;">
+        <form method='post' action="{% url 'payment' %}" style="padding-top:50px;margin-left: 60px;text-align: center;padding-left: 5px;width: 450px;">
+            {% csrf_token %}
+            {{ address_form.address|as_crispy_field }}<br>
+            {{ address_form.mobno|as_crispy_field }}
+            <button type="submit" class="btn btn-primary" style="margin-left:30px;margin-top:10px;">Pay</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
